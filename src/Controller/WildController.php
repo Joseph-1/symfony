@@ -38,19 +38,45 @@ class WildController extends AbstractController
     */
 
     // Exemple à réaliser (challenge)
+    /*
      /**
      * @Route("/show/{slug}",
       *requirements={"slug"="[a-z0-9-]+"},
       *defaults={"slug"="Aucune série sélectionnée, veuillez choisir une série"},
       *name="wild_show")
      */
-    public function show($slug): Response
+    /*public function show($slug): Response
     {
+        if ($slug ===!empty($slug)){
         $slug = str_replace('-', ' ', $slug);
         $slug = ucwords($slug);
         return $this->render('wild/show.html.twig', [
             'slug' => $slug,
         ]);
+        } else {
+            return $this->render('wild/show.html.twig',
+                ['slug'=> "Aucune série sélectionnée, veuillez choisir une série"]);
+        }
     }
+    */
 
+    /**
+     *
+     * @Route("/show/{slug}",
+     *defaults={"slug"="Article sans titre"},
+     *requirements={"slug"="^[a-z0-9-]+$"},
+     *name="wild_show")
+     */
+    public function show(string $slug)
+    {
+        if(!$slug){
+            $slug = "Article sans titre";
+        }
+
+        $slug = ucwords(str_replace('-', ' ', $slug));
+
+        return $this->render('wild/show.html.twig', [
+            'slug' => $slug,
+        ]);
+    }
 }
