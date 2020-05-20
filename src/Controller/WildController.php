@@ -63,14 +63,14 @@ class WildController extends AbstractController
     /**
      *
      * @Route("/show/{slug}",
-     *defaults={"slug"="Article sans titre"},
+     *defaults={"slug"="Aucune série sélectionnée, veuillez choisir une série"},
      *requirements={"slug"="^[a-z0-9-]+$"},
      *name="wild_show")
      */
     public function show(string $slug)
     {
         if(!$slug){
-            $slug = "Article sans titre";
+            $slug = "Aucune série sélectionnée, veuillez choisir une série";
         }
 
         $slug = ucwords(str_replace('-', ' ', $slug));
