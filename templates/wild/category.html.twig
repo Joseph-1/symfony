@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Cats{% endblock %}
+
+{% block body %}
+
+    <h1>Catégorie : {{ category.name }}</h1>
+
+    {% for program in programs %}
+            <h3>{{ program.id }} / Titre : {{ program.title }}</h3>
+            <p> {{ program.summary }}</p>
+    {% endfor %}
+
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
+
+{% endblock %}
