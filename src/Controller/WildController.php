@@ -2,6 +2,8 @@
 // src/Controller/WildController.php
 namespace App\Controller;
 
+use App\Entity\Episode;
+use App\Entity\Season;
 use phpDocumentor\Reflection\Types\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,17 +26,17 @@ class WildController extends AbstractController
      */
     public function index(): Response
     {
-        $programs = $this->getDoctrine()
+        $program = $this->getDoctrine()
             ->getrepository(Program::class)
             ->findAll();
 
-        if (!$programs) {
+        if (!$program) {
             throw $this->createNotFoundException(
                 'No program found in program\'s table.'
             );
         }
         return $this->render('wild/index.html.twig', [
-            'programs' => $programs,
+            'programs' => $program,
         ]);
     }
 
@@ -129,4 +131,48 @@ class WildController extends AbstractController
                 'programs' => $program,
             ]);
     }
+
+    /**
+     * @param $slug
+     * @return Response
+     * @Route("/show/program/{slug}", name="show_program")
+     */
+    public function showByProgram(?string $slug): Response
+    {
+        $slug = preg_replace(
+            '/-/',
+            ' ', ucwords(trim(strip_tags($slug)), "-")
+        );
+        $program = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findOneBy(['title' => mb_strtolower($slug)]);
+
+        $season = $this->getDoctrine()
+            ->getrepository(Season::class)
+            ->findBy(['program' => $program]);
+            //->findAll();
+
+        return $this->render('wild/show_program.html.twig', [
+            'program' => $program,
+            'slug'  => $slug,
+            'season' => $season,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @Route("/program/season/{id}", name="show_season")
+     */
+    public function showBySeason($id): Response
+    {
+        $season = $this->getDoctrine()
+            ->getrepository(Episode::class)
+            ->findBy(['id' => $id]);
+
+       return $this->render('wild/show_season.html.twig', [
+           'season' => $season,
+       ]);
+    }
 }
+

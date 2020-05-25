@@ -3,7 +3,7 @@
 {% block title %}Cats{% endblock %}
 
 {% block body %}
-
+{{ dump(programs) }}
     <h1>Catégorie : {{ category.name }}</h1>
 
     {% for program in programs %}
