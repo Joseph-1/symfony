@@ -12,7 +12,9 @@
 
             {% for season in season %}
                 <div>
-                    <h2>Saison numéro :  {{ season.number }}</h2>
+                    <a href="{{ path('wild_show_season', {season.id}) }}">
+                        <h2>Saison numéro :  {{ season.number }}</h2>
+                    </a>
                     <p>Date de sortie :  {{ season.year }}</p>
                     <p>Description :  {{ season.description }}</p>
                 </div>
