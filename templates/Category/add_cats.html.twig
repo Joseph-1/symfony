@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Add categories{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    {{ form_row(form) }}
+    {{ form_end(form) }}
+
+    <br>
+
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
+{% endblock %}
