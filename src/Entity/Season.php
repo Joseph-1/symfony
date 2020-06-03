@@ -41,12 +41,6 @@ class Season
     private $program;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Episode::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $episode;
-
-    /**
      * @ORM\OneToMany(targetEntity=Episode::class, mappedBy="season", orphanRemoval=true)
      */
     private $episodes;
