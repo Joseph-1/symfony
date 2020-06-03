@@ -1,16 +1,26 @@
 {# templates/wild/show.html.twig #}
 {% extends 'base.html.twig' %}
-{% block title %}Season{% endblock %}
+{% block title %}Episode{% endblock %}
 
 {% block body %}
     {{ dump(program) }}
     <div class="media">
-        <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
         <div class="media-body">
-            <h1 class="mt-0">{{ program.title }}</h1>
-            <p>{{ program.summary }}</p>
-            <!-- <p><a href="{#{{ path('wild_show_season', {id : program.id }) }}#}">Détails de la saison</a></p> -->
-            <p><a href="{{ path('wild_show_program', {slug : program.title }) }}">Détails de la série</a></p>
+            <h1>Série :  {{program.title}}</h1>
+            <h2>Episode :  {{ episode.title }}</h2>
+            <p>Saison : {{ season.number }}</p>
+            <p>Episode : {{ episode.number }}</p>
+            <p>Résumé : {{ episode.synopsis }}</p>
+            <p>
+                <a href="{{ path('wild_show_season', {'id': season.id }) }}">
+                    Détails de la saison
+                </a>
+            </p>
+            <p>
+                <a href="{{ path('wild_show_program', {slug : program.title }) }}">
+                    Détails de la série
+                </a>
+            </p>
         </div>
     </div>
 
