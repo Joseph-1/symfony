@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\ProgramRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ProgramRepository::class)
+ * @UniqueEntity(fields="title", message = "est un titre qui existe déjà, veuillez en choisir un autre.")
  */
 class Program
 {
@@ -19,11 +22,14 @@ class Program
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank()
+     * @Assert\Length(max="255")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $summary;
 
