@@ -2,6 +2,7 @@
 // src/Controller/WildController.php
 namespace App\Controller;
 
+use App\Entity\Actor;
 use App\Entity\Episode;
 use App\Entity\Season;
 use App\Form\ProgramSearchType;
@@ -205,5 +206,6 @@ class WildController extends AbstractController
             'program' => $program,
         ]);
     }
+
 }
 
