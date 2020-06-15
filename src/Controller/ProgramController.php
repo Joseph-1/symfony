@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Program;
 use App\Form\ProgramType;
 use App\Repository\ProgramRepository;
+use App\Service\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,8 @@ class ProgramController extends AbstractController
 
     /**
      * @Route("/new", name="program_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -38,6 +41,7 @@ class ProgramController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
             $entityManager->persist($program);
             $entityManager->flush();
 
@@ -52,9 +56,12 @@ class ProgramController extends AbstractController
 
     /**
      * @Route("/{id}", name="program_show", methods={"GET"})
+     * @param Program $program
+     * @return Response
      */
     public function show(Program $program): Response
     {
+
         return $this->render('program/show.html.twig', [
             'program' => $program,
         ]);
